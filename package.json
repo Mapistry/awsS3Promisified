@@ -1,0 +1,30 @@
+{
+  "name": "aws-s3-promisified",
+  "version": "1.0.1",
+  "description": "A node module for interacting with Amazon S3. All functions use Bluebird promises",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mapistry/awsS3Promisified.git"
+  },
+  "author": "Allie Janoch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mapistry/awsS3Promisified/issues"
+  },
+  "homepage": "https://github.com/Mapistry/awsS3Promisified",
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.1.0",
+    "restler": "^3.2.2",
+    "sinon": "^1.12.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1.4",
+    "bluebird": "^2.5.3",
+    "underscore": "^1.7.0"
+  }
+}
