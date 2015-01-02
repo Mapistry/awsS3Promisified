@@ -35,7 +35,7 @@ var awsS3Promisified = {
       s3.getObject(params).createReadStream().pipe(writeStream);
 
       writeStream.on('finish', function () {
-        resolve();
+        resolve(path);
       })
       .on('error', function (err) {
         reject('Writestream to ' + path + ' did not finish successfully: ' + err);
