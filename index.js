@@ -18,12 +18,18 @@ var awsS3Promisified = {
       secretAccessKey: secretAccessKey
     });
 
+    // default expiration time to 8 hours
+    this.setExpirationInSeconds(28800);
+
     return this;
   },
 
-  getDefaultExpiration: function() {
-    // This value is 8 hours in seconds
-    return 28800;
+  setExpirationInSeconds: function(t) {
+    this.expirationTime = t;
+  },
+
+  getExpirationInSeconds: function() {
+    return this.expirationTime;
   },
 
   saveObjectToFile: function(bucket, key, path) {
@@ -48,7 +54,7 @@ var awsS3Promisified = {
     var params = {
       Bucket: bucket,
       Key: key,
-      Expires: this.getDefaultExpiration()
+      Expires: this.getExpirationInSeconds()
     };
 
     return new BluebirdPromise(function(resolve, reject){
