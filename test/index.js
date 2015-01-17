@@ -42,8 +42,7 @@ describe('AWS', function() {
       }).then(function(readstream) {
         awsReadstream = readstream;
         return AWS.copyObject(bucket, key, bucket, copyKey);
-      })
-      .then(function(){
+      }).then(function(){
         return AWS.listObjects(bucket, 'grumpy');
       }).then(function(data){
         listObjectsData = data;
@@ -56,23 +55,34 @@ describe('AWS', function() {
         restler.get(signedURL)
           .on('complete', function(resp){
             signedURLResp = resp;
-            return BluebirdPromise.all([
-                AWS.deleteObject(bucket, key),
-                AWS.deleteObject(bucket, copyKey)
-              ])
-              .then(function(){
-                return AWS.listObjects(bucket, 'grumpy');
-              }).then(function(data){
-                listObjectsAfterDeleteData = data;
-                downloadReadStream.on('readable', function(){
-                  if(!downloadedRead){
-                    downloadedRead = true;
-                    done();
-                  }
-                });
-              });
+            return deleteDataUploadedToS3()
+              .then(listObjectsStartingWithGrumpy)
+              .then(readFileDownloadedFromS3);
           });
       });
+
+    function deleteDataUploadedToS3() {
+      return BluebirdPromise.all([
+        AWS.deleteObject(bucket, key),
+        AWS.deleteObject(bucket, copyKey)
+      ]);
+    }
+
+    function listObjectsStartingWithGrumpy() {
+      return AWS.listObjects(bucket, 'grumpy')
+        .then(function(data){
+          listObjectsAfterDeleteData = data;
+        });
+    }
+
+    function readFileDownloadedFromS3() {
+      downloadReadStream.on('readable', function(){
+        if(!downloadedRead){
+          downloadedRead = true;
+          done();
+        }
+      });
+    }
   });
 
   after(function() {
@@ -80,8 +90,8 @@ describe('AWS', function() {
   });
 
   it('the same file that is put on S3 can be retrieved', function(done){
-    var localReadStream = fs.createReadStream(filepath),
-        readBeginning = false;
+    var localReadStream = fs.createReadStream(filepath);
+    var readBeginning = false;
     localReadStream.on('readable', function() {
       if (!readBeginning) {
         expect(awsReadstream.read(10)).to.eql(localReadStream.read(10));
@@ -92,8 +102,8 @@ describe('AWS', function() {
   });
 
   it('original file matches file downloaded from s3', function(done){
-    var originalReadStream = fs.createReadStream(filepath),
-        readBeginning = false;
+    var originalReadStream = fs.createReadStream(filepath);
+    var readBeginning = false;
 
     originalReadStream.on('readable', function(){
       if (!readBeginning) {

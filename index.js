@@ -5,9 +5,9 @@ var _ = require('underscore');
 
 var awsS3Promisified = {
 
-  initialize: function() {
-    var accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-    var secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+  initialize: function(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) {
+    var accessKeyId = AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
+    var secretAccessKey = AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY;
 
     if (!accessKeyId || !secretAccessKey) {
       throw new Error( 'AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables must be defined.' );
@@ -94,8 +94,8 @@ var awsS3Promisified = {
    */
   listObjects: function(bucket, prefix) {
     return new BluebirdPromise(function(resolve, reject){
-      var s3 = new AWS.S3(),
-          params = { Bucket: bucket};
+      var s3 = new AWS.S3();
+      var params = { Bucket: bucket};
 
       if (prefix) {
         params.Prefix = prefix;
