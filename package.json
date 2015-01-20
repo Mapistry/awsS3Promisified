@@ -1,6 +1,6 @@
 {
   "name": "aws-s3-promisified",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A node module for interacting with Amazon S3. All functions use Bluebird promises",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "aws-sdk": "^2.1.4",
     "bluebird": "^2.5.3",
+    "environment-vars": "^1.0.0",
     "underscore": "^1.7.0"
   }
 }

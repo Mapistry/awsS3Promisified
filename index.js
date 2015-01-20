@@ -2,12 +2,13 @@ var AWS = require('aws-sdk');
 var BluebirdPromise = require('bluebird');
 var fs = require('fs');
 var _ = require('underscore');
+var environmentVars = new require('environment-vars')(__dirname);
 
 var awsS3Promisified = {
 
   initialize: function(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) {
-    var accessKeyId = AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
-    var secretAccessKey = AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY;
+    var accessKeyId = AWS_ACCESS_KEY_ID || environmentVars.get('AWS_ACCESS_KEY_ID');
+    var secretAccessKey = AWS_SECRET_ACCESS_KEY || environmentVars.get('AWS_SECRET_ACCESS_KEY');
 
     if (!accessKeyId || !secretAccessKey) {
       throw new Error( 'AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables must be defined.' );
