@@ -50,7 +50,7 @@ var awsS3Promisified = {
     });
   },
 
-  getSignedURL: function(bucket, key) {
+  getSignedURL: function(bucket, key, options) {
     var s3 = new AWS.S3();
     var params = {
       Bucket: bucket,
@@ -58,8 +58,22 @@ var awsS3Promisified = {
       Expires: this.getExpirationInSeconds()
     };
 
+    options = options || {};
+
+    if (!options.operation) {
+      operation = 'getObject';
+    }
+
+    if (options.contentType) {
+      params.ContentType = options.contentType;
+    }
+
+    if (options.ACL) {
+      params.ACL = options.ACL;
+    }
+
     return new BluebirdPromise(function(resolve, reject){
-      s3.getSignedUrl('getObject', params, function(error, url){
+      s3.getSignedUrl(operation, params, function(error, url){
         if (error) { reject(error); }
         else { resolve(url); }
       });
