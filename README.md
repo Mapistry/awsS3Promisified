@@ -11,16 +11,16 @@ npm install aws-s3-promisified
 ###Usage:
 #####Option 1: environmental variables.
 Set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as environment variables, then Node will configure AWS automatically.
-```
+```js
 var aws = require('aws-s3-promisified');
 ```
 #####Option 2: set environment variables manually
-```
+```js
 var aws = require('aws-s3-promisified').initialize(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY);
 ```
 
 All these functions return a Bluebird promise.
-```
+```js
 // Upload a file to S3
 aws.putFile(bucket, key, filepath);
 
