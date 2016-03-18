@@ -5,7 +5,7 @@ var restler = require('restler');
 var BluebirdPromise = require('bluebird');
 var fs = BluebirdPromise.promisifyAll(require('fs'));
 var path = require('path');
-var AWS = require('../index');
+var AWS = require('../index')();
 
 // NOTE: These tests aren't just stubs. They actually save files to aws, and
 // retrieve them.
