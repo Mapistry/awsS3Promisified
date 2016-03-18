@@ -16,7 +16,10 @@ var aws = require('aws-s3-promisified')();
 ```
 #####Option 2: set environment variables manually
 ```js
-var aws = require('aws-s3-promisified')(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY);
+var aws = require('aws-s3-promisified')({
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY
+});
 ```
 
 All these functions return a Bluebird promise.

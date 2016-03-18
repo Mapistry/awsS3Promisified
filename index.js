@@ -3,13 +3,10 @@ var BluebirdPromise = require('bluebird');
 var fs = require('fs');
 var _ = require('underscore');
 
-module.exports = function (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) {
+module.exports = function (config) {
 
-  if (AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY) {
-    AWS.config.update({
-      accessKeyId: AWS_ACCESS_KEY_ID,
-      secretAccessKey: AWS_SECRET_ACCESS_KEY
-    });
+  if (config && config.accessKeyId && config.secretAccessKey) {
+    AWS.config.update(config);
   }
 
   // default expiration time to 8 hours
