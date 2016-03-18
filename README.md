@@ -3,16 +3,22 @@ awsS3Promisified
 
 A node module for interacting with Amazon S3. All functions use Bluebird promises.
 
-####Installation:
+###Installation:
 ```
 npm install aws-s3-promisified
 ```
 
-####Usage:
-Make sure to set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
+###Usage:
+#####Option 1: environmental variables. 
+Set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as environment variables, then Node will configure AWS automatically.
 ```
 var aws = require('aws-s3-promisified');
 ```
+#####Option 2: set environment variables manually
+```
+var aws = require('aws-s3-promisified').initialize(AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY);
+```
+
 All these functions return a Bluebird promise.
 ```
 // Upload a file to S3
