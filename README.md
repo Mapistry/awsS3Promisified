@@ -1,3 +1,5 @@
+[ ![Codeship Status for Mapistry/awsS3Promisified](https://app.codeship.com/projects/b514e0c0-37a3-0135-1ad6-6a32b08b530d/status?branch=master)](https://app.codeship.com/projects/227549)
+
 awsS3Promisified
 ================
 
