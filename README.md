@@ -24,6 +24,16 @@ var aws = require('aws-s3-promisified')({
 });
 ```
 
+#####Option 3: set environment variables manually in case of temporary login i.e. when you attach IAM Role to EC2 Instance. 
+```js
+var aws = require('aws-s3-promisified')({
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY
+    accessToken: AWS_TOKEN
+});
+```
+
+
 All these functions return a Bluebird promise.
 ```js
 // Upload a file to S3
