@@ -76,6 +76,10 @@ var getSignedURL = function (bucket, key, options) {
     params.ACL = options.ACL;
   }
 
+  if (options.ResponseContentDisposition) {
+    params.ResponseContentDisposition = options.ResponseContentDisposition;
+  }
+
   return new BluebirdPromise(function (resolve, reject) {
     s3.getSignedUrl(operation, params, function (error, url) {
       if (error) {
