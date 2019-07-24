@@ -59,25 +59,18 @@ var saveObjectToFile = function (bucket, key, path) {
 
 var getSignedURL = function (bucket, key, options) {
   var s3 = new AWS.S3();
-  var params = {
+  options = options || {};
+
+  var params = _.extend(options, {
     Bucket: bucket,
     Key: key,
     Expires: this.getExpirationInSeconds()
-  };
+  });
 
-  options = options || {};
   var operation = options.operation || 'getObject';
 
   if (options.contentType) {
     params.ContentType = options.contentType;
-  }
-
-  if (options.ACL) {
-    params.ACL = options.ACL;
-  }
-
-  if (options.ResponseContentDisposition) {
-    params.ResponseContentDisposition = options.ResponseContentDisposition;
   }
 
   return new BluebirdPromise(function (resolve, reject) {
