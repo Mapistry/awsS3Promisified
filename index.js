@@ -23,6 +23,7 @@ var awsS3Promisified = function (config) {
     deleteObject: deleteObject,
     putObject: putObject,
     putFile: putFile,
+    upload: upload,
     copyObject: copyObject
   }
 };
@@ -219,6 +220,29 @@ var putFile = function (bucket, key, filepath) {
       var bodyStream = fs.createReadStream(filepath);
 
       return this.putObject(bucket, key, bodyStream, fileInfo.size);
+    });
+};
+
+/* Put an object in S3
+ *
+ * Parameters:
+ *  any valid parameters listed that aws-sdk.s3().upload() supports
+ *  https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property
+ *
+ * Return:
+ *    bluebird promise
+ */
+var upload = function (params) {
+    return new BluebirdPromise(function (resolve, reject) {
+    var s3 = new AWS.S3();
+    s3.upload(params, function (error, data) {
+      if (error) {
+        reject(error);
+      }
+      else {
+        resolve(data);
+      }
+    })
     });
 };
 
