@@ -65,7 +65,7 @@ var getSignedURL = function (bucket, key, options) {
   var params = _.extend(options, {
     Bucket: bucket,
     Key: key,
-    Expires: this.getExpirationInSeconds()
+    Expires: 604800 // 1 week (max TTL that Amazon supports)
   });
 
   var operation = options.operation || 'getObject';
